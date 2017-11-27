@@ -1,7 +1,7 @@
 ﻿:: ==================================================================================
 :: NAME     : Uninstall Office 2016.
 :: AUTHOR     : Manuel Gil.
-:: VERSION     : 2.0.
+:: VERSION     : 2.1.
 :: ==================================================================================
 
 
@@ -115,7 +115,7 @@ goto :eof
 :: Making backup of Registry.
 :: /*************************************************************************************/
 :Registry
-	for /f "tokens=1-5 delims=/, " %%a in ("%date%") do (
+	for /f "tokens=1-5 delims=/., " %%a in ("%date%") do (
 		set now=%%a%%b%%c%%d%time:~0,2%%time:~3,2%
 	)
 
@@ -403,6 +403,8 @@ goto :eof
 	reg delete "HKLM\SOFTWARE\Microsoft\Office\Common\InstallRoot\Virtual" /f
 
 	reg delete "HKLM\SOFTWARE\Classes\CLSID\{2027FC3B-CF9D-4ec7-A823-38BA308625CC}" /f
+	reg delete "HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{A0D4CD32-5D5D-4f72-BAAA-767A7AD6BAC5}" /f
+	reg delete "HKCR\Wow6432Node\CLSID\{A0D4CD32-5D5D-4f72-BAAA-767A7AD6BAC5}" /f
 
 	reg delete "HKCU\SOFTWARE\Microsoft\Office\15.0\ClickToRun" /f
 	reg delete "HKLM\SOFTWARE\Microsoft\Office\15.0\ClickToRun" /f
@@ -467,16 +469,104 @@ goto :eof
 	set valor=O365
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
 	set valor=ProfessionaRetail
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
@@ -490,16 +580,104 @@ goto :eof
 	set valor=O365
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 	set valor=ProfessionalRetail
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	:: Removing shortcuts.
@@ -840,6 +1018,8 @@ goto :eof
 	reg delete "HKLM\SOFTWARE\Microsoft\Office\Common\InstallRoot\Virtual" /f
 
 	reg delete "HKLM\SOFTWARE\Classes\CLSID\{2027FC3B-CF9D-4ec7-A823-38BA308625CC}" /f
+	reg delete "HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{A0D4CD32-5D5D-4f72-BAAA-767A7AD6BAC5}" /f
+	reg delete "HKCR\Wow6432Node\CLSID\{A0D4CD32-5D5D-4f72-BAAA-767A7AD6BAC5}" /f
 
 	reg delete "HKCU\SOFTWARE\Microsoft\Office\15.0\ClickToRun" /f
 	reg delete "HKLM\SOFTWARE\Microsoft\Office\15.0\ClickToRun" /f
@@ -926,16 +1106,104 @@ goto :eof
 	set valor=O365
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
 	set valor=ProfessionaRetail
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
-	   reg delete "%%a - es-es" /f
+		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
@@ -949,16 +1217,104 @@ goto :eof
 	set valor=O365
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
 	set valor=ProfessionalRetail
 
 	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+		reg delete "%%a - ar-sa" /f
+		reg delete "%%a - bg-bg" /f
+		reg delete "%%a - ca-es" /f
+		reg delete "%%a - cs-cz" /f
+		reg delete "%%a - da-dk" /f
+		reg delete "%%a - de-de" /f
+		reg delete "%%a - el-gr" /f
 		reg delete "%%a - en-us" /f
 		reg delete "%%a - es-es" /f
+		reg delete "%%a - et-ee" /f
+		reg delete "%%a - eu-es" /f
+		reg delete "%%a - fi-fi" /f
+		reg delete "%%a - fr-fr" /f
+		reg delete "%%a - gl-es" /f
+		reg delete "%%a - he-il" /f
+		reg delete "%%a - hi-in" /f
+		reg delete "%%a - hr-hr" /f
+		reg delete "%%a - hu-hu" /f
+		reg delete "%%a - id-id" /f
+		reg delete "%%a - it-it" /f
+		reg delete "%%a - ja-jp" /f
+		reg delete "%%a - kk-kz" /f
+		reg delete "%%a - ko-kr" /f
+		reg delete "%%a - lt-lt" /f
+		reg delete "%%a - lv-lv" /f
+		reg delete "%%a - ms-my" /f
+		reg delete "%%a - nb-no" /f
+		reg delete "%%a - nl-nl" /f
+		reg delete "%%a - pl-pl" /f
+		reg delete "%%a - pt-br" /f
+		reg delete "%%a - pt-pt" /f
+		reg delete "%%a - ro-ro" /f
+		reg delete "%%a - ru-ru" /f
+		reg delete "%%a - sk-sk" /f
+		reg delete "%%a - sl-si" /f
+		reg delete "%%a - sr-cyrl-cs" /f
+		reg delete "%%a - sr-cyrl-rs" /f
+		reg delete "%%a - sr-latn-cs" /f
+		reg delete "%%a - sr-latn-rs" /f
+		reg delete "%%a - sv-se" /f
+		reg delete "%%a - th-th" /f
+		reg delete "%%a - tr-tr" /f
+		reg delete "%%a - uk-ua" /f
+		reg delete "%%a - vi-vn" /f
+		reg delete "%%a - zh-cn" /f
+		reg delete "%%a - zh-tw" /f
 	)
 
 	reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Office14.ENTERPRISE" /f
