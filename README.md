@@ -20,7 +20,7 @@
 This script lets you uninstall or remove so manually Office 2016.
 
 <a name="started"></a>
-## Getting Started
+## :traffic_light: Getting Started
 
 This page will help you get started with the 'Uninstall Office 2016' Tool.
 
@@ -35,7 +35,7 @@ This page will help you get started with the 'Uninstall Office 2016' Tool.
   * This file don't require installation
 
 <a name="changelog"></a>
-## Changelog
+## :information_source: Changelog
 
 **2.1** (11/27/2017)
 
@@ -72,15 +72,15 @@ This page will help you get started with the 'Uninstall Office 2016' Tool.
 		</tr>
 	</table>
 
-<a name="Donating"></a>
-## Donating
+<a name="Donate"></a>
+## :gift: Donate!
 
 If you want to help me to continue this project, you might donate via PayPal.
 
-<a href="https://paypal.me/ManuelFGil"><img src="https://img.shields.io/badge/donate-PayPal-blue.svg" alt="Donate via PayPal"></a>
+<a href="https://paypal.me/ManuelFGil"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate via PayPal"></a>
 
 <a name="authors"></a>
-## Authors
+## :eyeglasses: Authors
 
   * **Manuel Gil** - *Initial work* - [ManuelGil](https://github.com/ManuelGil) 
 
@@ -88,7 +88,7 @@ See also the list of [contributors](https://github.com/ManuelGil/Uninstall-Offic
  who participated in this project.
 
 <a name="license"></a>
-## License
+## :memo: License
 
 Uninstall Office 2016 is licensed under the MIT License - see the
  [MIT License](https://opensource.org/licenses/MIT) for details.
