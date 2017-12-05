@@ -17,7 +17,8 @@
 	</a>
 </div>
 
-This script lets you uninstall or remove so manually Office 2016.
+This script allows you to uninstall or automatically delete Office 2016, 365 or
+ earlier using the Microsoft Windows command line.
 
 <a name="started"></a>
 ## :traffic_light: Getting Started
