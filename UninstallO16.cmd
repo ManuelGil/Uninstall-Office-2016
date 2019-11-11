@@ -1,11 +1,12 @@
 ﻿:: ==================================================================================
 :: NAME     : Uninstall Office 2016.
 :: AUTHOR     : Manuel Gil.
-:: VERSION     : 2.1.
+:: VERSION     : 2.2.
 :: ==================================================================================
 
 
 :: Screen settings.
+:: void mode();
 :: /************************************************************************************/
 :mode
 	echo off
@@ -18,6 +19,8 @@ goto :eof
 
 
 :: Print Top Text.
+::		@param - text = the text to print (%*).
+:: void print(string text);
 :: /*************************************************************************************/
 :print
 	cls
@@ -31,19 +34,21 @@ goto :eof
 
 
 :: Checking for Administrator elevation.
+:: void permission();
 :: /************************************************************************************/
 :permission
 	openfiles>nul 2>&1
-	 
+
 	if %errorlevel% EQU 0 goto terms
-	 
+
 	call :print Checking for Administrator elevation.
 
 	echo.    You are not running as Administrator.
-	echo.    This batch cannot do it's job without elevation.
+	echo.    This tool cannot do it's job without elevation.
 	echo.
-	echo.    You must run this tool as Administrator.
+	echo.    You need run this tool as Administrator.
 	echo.
+
 	echo.Press any key to continue . . .
 	pause>nul
 goto :eof
@@ -51,6 +56,7 @@ goto :eof
 
 
 :: Terms.
+:: void terms();
 :: /*************************************************************************************/
 :terms
 	call :print Terms and Conditions.
@@ -79,6 +85,7 @@ goto :eof
 
 
 :: Menu of tool.
+:: void menu();
 :: /*************************************************************************************/
 :Menu
 	call :print Main menu.
@@ -113,17 +120,22 @@ goto :eof
 
 
 :: Making backup of Registry.
+:: void registry()
 :: /*************************************************************************************/
 :Registry
 	for /f "tokens=1-5 delims=/., " %%a in ("%date%") do (
 		set now=%%a%%b%%c%%d%time:~0,2%%time:~3,2%
 	)
 
+	if not exist "%USERPROFILE%\Desktop\Backup\Regedit\%now%\" (
+		mkdir "%USERPROFILE%\Desktop\Backup\Regedit\%now%\"
+	)
+
 	:: Create a backup of the Registry.
 	:: ------------------------------------------------------------------------
-	call :print Making a backup copy of the Registry in: %USERPROFILE%\Desktop\Backup%now%.reg
+	call :print Making a backup of the Registry in: %USERPROFILE%\Desktop\Backup\Regedit\%now%\
 
-	if exist "%USERPROFILE%\Desktop\Backup%now%.reg" (
+	if exist "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKLM.reg" (
 		echo.An unexpected error has occurred.
 		echo.
 		echo.    Changes were not carried out in the registry.
@@ -133,14 +145,18 @@ goto :eof
 		pause>nul
 		goto :eof
 	) else (
-		regedit /e "%USERPROFILE%\Desktop\Backup%now%.reg"
+		reg Export HKCR "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKCR.reg"
+		reg Export HKCU "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKCU.reg"
+		reg Export HKLM "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKLM.reg"
+		reg Export HKU "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKU.reg"
+		reg Export HKCC "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKCC.reg"
 	)
 
 	:: Checking backup.
 	:: ------------------------------------------------------------------------
-	call :print Checking the backup copy.
+	call :print Checking the backup.
 
-	if not exist "%USERPROFILE%\Desktop\Backup%now%.reg" (
+	if not exist "%USERPROFILE%\Desktop\Backup\Regedit\%now%\HKLM.reg" (
 		echo.An unexpected error has occurred.
 		echo.
 		echo.    Something went wrong.
@@ -161,13 +177,14 @@ goto :eof
 
 
 :: Uninstall Office 2016.
+:: void Office16()
 :: /*************************************************************************************/
 :Office16
 	:: Closing apps.
 	:: --------------------------------------------------
 	call :print Microsoft Office, Internet Explorer y Windows Explorer go to close.
 
-	echo.    Please, save all open documents for continue.
+	echo.    Please, save changes to all open Word documents before continue.
 	echo.
 	echo.Press any key to continue . . .
 	pause>nul
@@ -458,17 +475,17 @@ goto :eof
 
 	reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Microsoft Office Temp Files" /f
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=0FF1CE
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=0FF1CE
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=O365
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=O365
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -517,10 +534,10 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=ProfessionaRetail
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=ProfessionaRetail
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -569,17 +586,17 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=0FF1CE
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=0FF1CE
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=O365
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=O365
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -628,10 +645,10 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=ProfessionalRetail
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=ProfessionalRetail
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -787,13 +804,14 @@ goto :eof
 
 
 :: Delete waste of Office.
+:: void All()
 :: /*************************************************************************************/
 :All
 	:: Closing apps.
 	:: --------------------------------------------------
 	call :print Microsoft Office, Internet Explorer y Windows Explorer go to close.
 
-	echo.    Please, save all open documents for continue.
+	echo.    Please, save changes to all open Word documents before continue.
 	echo.
 	echo.Press any key to continue . . .
 	pause>nul
@@ -1081,31 +1099,31 @@ goto :eof
 
 	reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Office" /f
 
-	set clave=HKLM\SOFTWARE\Microsoft\Office\Delivery\SourceEngine\Downloads
-	set valor=0FF1CE}
+	set key=HKLM\SOFTWARE\Microsoft\Office\Delivery\SourceEngine\Downloads
+	set value=0FF1CE}
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Office\Delivery\SourceEngine\Downloads
-	set valor=0FF1CE}
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Office\Delivery\SourceEngine\Downloads
+	set value=0FF1CE}
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=0FF1CE
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=0FF1CE
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=O365
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=O365
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -1154,10 +1172,10 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=ProfessionaRetail
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=ProfessionaRetail
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -1206,17 +1224,17 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=0FF1CE
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=0FF1CE
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=O365
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=O365
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -1265,10 +1283,10 @@ goto :eof
 		reg delete "%%a - zh-tw" /f
 	)
 
-	set clave=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
-	set valor=ProfessionalRetail
+	set key=HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+	set value=ProfessionalRetail
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a - ar-sa" /f
 		reg delete "%%a - bg-bg" /f
 		reg delete "%%a - ca-es" /f
@@ -1365,66 +1383,66 @@ goto :eof
 	reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\STANDARDR" /f
 	reg delete "HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SMALLBUSINESSR" /f
 
-	set clave=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products
-	set valor=F01FEC
+	set key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products
+	set value=F01FEC
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Features
-	set valor=F01FEC
+	set key=HKCR\Installer\Features
+	set value=F01FEC
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Products
-	set valor=F01FEC
+	set key=HKCR\Installer\Products
+	set value=F01FEC
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\UpgradeCodes
-	set valor=F01FEC
+	set key=HKCR\Installer\UpgradeCodes
+	set value=F01FEC
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Win32Assemblies
-	set valor=Office16
+	set key=HKCR\Installer\Win32Assemblies
+	set value=Office16
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Win32Assemblies
-	set valor=Office15
+	set key=HKCR\Installer\Win32Assemblies
+	set value=Office15
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Win32Assemblies
-	set valor=Office14
+	set key=HKCR\Installer\Win32Assemblies
+	set value=Office14
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Win32Assemblies
-	set valor=Office12
+	set key=HKCR\Installer\Win32Assemblies
+	set value=Office12
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
-	set clave=HKCR\Installer\Win32Assemblies
-	set valor=Office11
+	set key=HKCR\Installer\Win32Assemblies
+	set value=Office11
 
-	for /f %%a in ('"reg query "%clave%" | find "%valor%""') do (
+	for /f %%a in ('"reg query "%key%" | find "%value%""') do (
 		reg delete "%%a" /f
 	)
 
@@ -1441,6 +1459,8 @@ goto :eof
 	reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\groove.exe" /f
 	reg delete "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\lync.exe" /f
 
+	reg delete "HKLM\SOFTWARE\Microsoft\AppModel" /f
+
 	:: End process.
 	:: --------------------------------------------------
 	call :print The operation completed successfully.
@@ -1452,6 +1472,7 @@ goto :eof
 
 
 :: End tool.
+:: void close();
 :: /*************************************************************************************/
 :close
 	exit

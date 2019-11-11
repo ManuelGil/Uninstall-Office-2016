@@ -4,10 +4,10 @@
 
 <div align="center">
 	<a href="#changelog">
-		<img src="https://img.shields.io/badge/stability-stable-green.svg" alt="Status">
+		<img src="https://img.shields.io/badge/stability-frozen-blue.svg" alt="Status">
 	</a>
 	<a href="#changelog">
-		<img src="https://img.shields.io/badge/release-v2.1-blue.svg" alt="Version">
+		<img src="https://img.shields.io/badge/release-v2.2-blue.svg" alt="Version">
 	</a>
   	<a href="#changelog">
 		<img src="https://img.shields.io/badge/update-november-yellowgreen.svg" alt="Update">
@@ -34,6 +34,13 @@ This page will help you get started with the 'Uninstall Office 2016' Tool.
 ### Installation
 
   * This file don't require installation
+
+<a name="Donate"></a>
+## :gift: Donate!
+
+If you want to help me to continue this project, you might donate via PayPal.
+
+<a href="https://paypal.me/ManuelFGil"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate via PayPal"></a>
 
 <a name="changelog"></a>
 ## :information_source: Changelog
@@ -73,17 +80,10 @@ This page will help you get started with the 'Uninstall Office 2016' Tool.
 		</tr>
 	</table>
 
-<a name="Donate"></a>
-## :gift: Donate!
-
-If you want to help me to continue this project, you might donate via PayPal.
-
-<a href="https://paypal.me/ManuelFGil"><img src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png" alt="Donate via PayPal"></a>
-
 <a name="authors"></a>
 ## :eyeglasses: Authors
 
-  * **Manuel Gil** - *Initial work* - [ManuelGil](https://github.com/ManuelGil) 
+  * **Manuel Gil** - *Owner* - [ManuelGil](https://github.com/ManuelGil) 
 
 See also the list of [contributors](https://github.com/ManuelGil/Uninstall-Office-2016/contributors)
  who participated in this project.
